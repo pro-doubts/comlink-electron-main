@@ -1,0 +1,61 @@
+{
+  "name": "comlink-electron-main",
+  "version": "0.2.0",
+  "description": "A wrapper around Comlink to make it work on the main process on electron",
+  "keywords": [
+    "comlink",
+    "electron",
+    "messagePort",
+    "ipc"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "clean": "pnpx rimraf ./.rollup.cache/ ./dist/ ./node_modules/ ./tsconfig.tsbuildinfo",
+    "build": "pnpm install && rollup --config rollup.config.mjs",
+    "buildCi": "set prod=true && pnpm run clean && pnpm install && rollup --config rollup.config.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IIIMADDINIII/comlink-electron-main.git"
+  },
+  "author": "IIIMADDINIII <martin@elend.name>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/IIIMADDINIII/comlink-electron-main/issues"
+  },
+  "homepage": "https://github.com/IIIMADDINIII/comlink-electron-main#readme",
+  "pnpm": {
+    "patchedDependencies": {
+      "@rollup/plugin-typescript@11.0.0": "patches/@rollup__plugin-typescript@11.0.0.patch"
+    }
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@rollup/pluginutils": "^5.0.2",
+    "@types/node": "^18.15.3",
+    "rollup": "^3.20.0",
+    "rollup-plugin-consts": "^1.1.0",
+    "rollup-plugin-include-sourcemaps": "^0.7.0",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "electron": ">=23.1.4",
+    "tslib": "^2.5.0"
+  }
+}
